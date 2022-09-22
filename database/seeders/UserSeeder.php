@@ -1,0 +1,168 @@
+<?php
+
+namespace Database\Seeders;
+
+use App\Models\User;
+use Illuminate\Database\Seeder;
+use Faker\Generator as Faker;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+
+class UserSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run(Faker $faker)
+    {
+        $user = new User();
+        $user->number_phone = $faker->phoneNumber;
+        $user->nick_name = $faker->name;
+        $user->full_name = $faker->name;
+        $user->rank_id = 1;
+        $user->nation_id = 1;
+        $user->gender = config('apps.common.genders.Male');
+        $user->age = 10;
+        $user->date_of_joining = $faker->date('y-m-d');
+        $user->birthday = '020304';
+        $user->status_user_id = 1;
+        $user->joining_form_id = 1;
+        $user->email = $faker->email;
+        $user->password = Hash::make('hungpro123');
+        $user->remember_token = Str::random(20);
+        $user->save();
+        $user = new User();
+        $user->number_phone = $faker->phoneNumber;
+        $user->rank_id = 1;
+        $user->nick_name = $faker->name;
+        $user->full_name = $faker->name;
+        $user->nation_id = 2;
+        $user->gender = config('apps.common.genders.Female');
+        $user->age = 20;
+        $user->date_of_joining =  $faker->date('y-m-d');
+        $user->birthday = '921104';
+        $user->status_user_id = 2;
+        $user->joining_form_id = 2;
+        $user->email = $faker->email;
+        $user->password = Hash::make('hungpro123');
+        $user->remember_token = Str::random(20);
+        $user->save();
+        $user = new User();
+        $user->number_phone = $faker->phoneNumber;
+        $user->rank_id = 1;
+        $user->nick_name = $faker->name;
+        $user->full_name = $faker->name;
+        $user->nation_id = 3;
+        $user->gender = config('apps.common.genders.Male');
+        $user->age = 30;
+        $user->date_of_joining =  $faker->date('y-m-d');
+        $user->birthday = '921104';
+        $user->status_user_id = 3;
+        $user->joining_form_id = 2;;
+        $user->email = $faker->email;
+        $user->password = Hash::make('hungpro123');
+        $user->remember_token = Str::random(20);
+        $user->save();
+        $user = new User();
+        $user->number_phone = $faker->phoneNumber;
+        $user->rank_id = 1;
+        $user->nick_name = $faker->name;
+        $user->full_name = $faker->name;
+        $user->nation_id = 4;
+        $user->gender = config('apps.common.genders.Male');
+        $user->age = 40;
+        $user->date_of_joining =  $faker->date('y-m-d');
+        $user->birthday = '950904';
+        $user->status_user_id = 4;
+        $user->joining_form_id = 2;;
+        $user->email = $faker->email;
+        $user->password = Hash::make('hungpro123');
+        $user->remember_token = Str::random(20);
+        $user->save();
+        $user = new User();
+        $user->number_phone = $faker->phoneNumber;
+        $user->rank_id = 2;
+        $user->nick_name = $faker->name;
+        $user->full_name = $faker->name;
+        $user->nation_id = 5;
+        $user->gender = config('apps.common.genders.Female');
+        $user->age = 50;
+        $user->date_of_joining =  $faker->date('y-m-d');
+        $user->birthday = '950904';
+        $user->status_user_id = 1;
+        $user->joining_form_id = 1;
+        $user->email = $faker->email;
+        $user->password = Hash::make('hungpro123');
+        $user->remember_token = Str::random(20);
+        $user->save();
+        $user = new User();
+        $user->number_phone = $faker->phoneNumber;
+        $user->rank_id = 2;
+        $user->role_type =  config('apps.common.role_type.admin');
+        $user->nick_name = $faker->name;
+        $user->full_name = $faker->name;
+        $user->nation_id = 6;
+        $user->gender =  config('apps.common.genders.Female');
+        $user->age = 60;
+        $user->date_of_joining =  $faker->date('y-m-d');
+        $user->birthday = '950904';
+        $user->status_user_id = 2;
+        $user->joining_form_id = 2;
+        $user->email = $faker->email;
+        $user->password = Hash::make('hungpro123');
+        $user->remember_token = Str::random(20);
+        $user->save();
+        $user = new User();
+        $user->number_phone = $faker->phoneNumber;
+        $user->rank_id = 1;
+        $user->role_type =  config('apps.common.role_type.admin');
+        $user->nick_name = $faker->name;
+        $user->full_name = $faker->name;
+        $user->nation_id = 4;
+        $user->gender = 3;
+        $user->age = 70;
+        $user->date_of_joining =  $faker->date('y-m-d');
+        $user->birthday = '950904';
+        $user->status_user_id = 3;
+        $user->joining_form_id = 1;
+        $user->email = $faker->email;
+        $user->password = Hash::make('hungpro123');
+        $user->remember_token = Str::random(20);
+        $user->save();
+        $user = new User();
+        $user->number_phone = $faker->phoneNumber;
+        $user->rank_id = 3;
+        $user->role_type = config('apps.common.role_type.admin');
+        $user->nick_name = $faker->name;
+        $user->full_name = $faker->name;
+        $user->nation_id = 3;
+        $user->gender = config('apps.common.genders.Male');
+        $user->age = 10;
+        $user->date_of_joining =  $faker->date('y-m-d');
+        $user->birthday = '950904';
+        $user->status_user_id = 1;
+        $user->joining_form_id = 1;
+        $user->email = 'admin@gmail.com';
+        $user->password = Hash::make('admin123');
+        $user->remember_token = Str::random(20);
+        $user->save();
+        $user = new User();
+        $user->number_phone = $faker->phoneNumber;
+        $user->nick_name = $faker->name;
+        $user->full_name = $faker->name;
+        $user->rank_id = 1;
+        $user->nation_id = 1;
+        $user->gender = config('apps.common.genders.Male');
+        $user->age = 10;
+        $user->date_of_joining = $faker->date('y-m-d');
+        $user->birthday = '020304';
+        $user->status_user_id = 1;
+        $user->joining_form_id = 1;
+        $user->email = 'user@gmail.com';
+        $user->password = Hash::make('user123');
+        $user->remember_token = Str::random(20);
+        $user->save();
+    }
+}
