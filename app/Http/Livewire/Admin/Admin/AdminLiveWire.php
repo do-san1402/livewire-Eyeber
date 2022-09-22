@@ -1,14 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Web\admins;
+namespace App\Http\Livewire\Admin\Admin;
 
-use App\Http\Controllers\Controller;
+use Livewire\Component;
 use App\Http\Requests\StoreAdminRequest;
 use App\Http\Requests\UpdateAdminRequest;
 use App\Models\Rank;
-use App\Models\StatusUser;
 use App\Models\User;
-use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -17,9 +15,8 @@ use Illuminate\Support\Facades\Hash;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Str;
 
-class AdminController extends Controller
+class AdminLiveWire extends Component
 {
-
     private $faker;
 
     public function __construct(Faker $faker)

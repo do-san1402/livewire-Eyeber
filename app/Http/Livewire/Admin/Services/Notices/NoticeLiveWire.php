@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Web\services\notices;
+namespace App\Http\Livewire\Admin\Services\Notices;
 
-use App\Http\Controllers\Controller;
+use Livewire\Component;
 use App\Http\Requests\NoticeRequest;
 use App\Models\Notice;
 use Illuminate\Http\Request;
@@ -10,7 +10,7 @@ use Exception;
 use Illuminate\Support\Facades\Log;
 use Yajra\DataTables\Facades\DataTables;
 
-class NoticeController extends Controller
+class NoticeLiveWire extends Component
 {
     public function index()
     {

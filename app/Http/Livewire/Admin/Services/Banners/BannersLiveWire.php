@@ -1,19 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\Web\services\banners;
+namespace App\Http\Livewire\Admin\Services\Banners;
 
-use App\Http\Controllers\Api\BaseController;
-use App\Http\Controllers\Controller;
+use Livewire\Component;
 use App\Models\Banner;
 use DateTime;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Validator;
 
-class BannerController extends BaseController
+class BannersLiveWire extends Component
 {
     public $image_default;
     public function __construct()

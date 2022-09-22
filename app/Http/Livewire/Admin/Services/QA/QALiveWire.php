@@ -1,16 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Web\services\QA;
+namespace App\Http\Livewire\Admin\Services\QA;
 
-use App\Http\Controllers\Controller;
+use Livewire\Component;
 use App\Models\QA;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
-class QAController extends Controller
+class QALiveWire extends Component
 {
-
     public function index()
     {
         $ads_stautus  = config('apps.common.ads_status');

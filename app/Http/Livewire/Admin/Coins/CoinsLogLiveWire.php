@@ -1,20 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\Web\coins;
+namespace App\Http\Livewire\Admin\Coins;
 
-use App\Http\Controllers\Api\BaseController;
+use Livewire\Component;
 use App\Jobs\WaitForWithdrawalJob;
 use App\Models\Coin;
 use App\Models\CoinLog;
-use App\Models\WalletAddressHistory;
 use App\Services\Wallets\WalletService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Yajra\DataTables\Facades\DataTables;
 
-
-class CoinLogController extends BaseController
+class CoinsLogLiveWire extends Component
 {
     public $image_default;
     private $confirms;
@@ -216,6 +214,5 @@ class CoinLogController extends BaseController
             Log::error($e->getMessage());
             return  response()->json($response);
         }
-    }
-
+    }    
 }

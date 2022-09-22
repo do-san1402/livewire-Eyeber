@@ -1,13 +1,15 @@
 <?php
-namespace App\Http\Controllers\Web\advertisements;
 
+namespace App\Http\Livewire\Admin\Advertisement;
+
+use Livewire\Component;
 use App\Models\WatchAdvertisementsLog;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 
-class MiningStatusController
+class MiningStatusLiveWire extends Component
 {
     public function index()
     {

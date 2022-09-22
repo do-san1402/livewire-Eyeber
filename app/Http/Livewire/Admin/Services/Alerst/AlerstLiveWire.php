@@ -1,18 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\Web\services\alerts;
+namespace App\Http\Livewire\Admin\Services\Alerst;
 
-use App\Http\Controllers\Api\BaseController;
+use Livewire\Component;
 use App\Models\Alert;
-use App\Models\Banner;
 use DateTime;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
-
-class AlertController extends BaseController
+class AlerstLiveWire extends Component
 {
     public $image_default;
     public function __construct()

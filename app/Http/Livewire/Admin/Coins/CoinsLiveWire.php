@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Web\coins;
+namespace App\Http\Livewire\Admin\Coins;
 
+use Livewire\Component;
 use App\Http\Controllers\Api\BaseController;
 use App\Models\Coin;
 use App\Models\SettingCommon;
@@ -14,8 +15,7 @@ use Illuminate\Support\Facades\Log;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
 
-
-class CoinController extends BaseController
+class CoinsLiveWire extends Component
 {
     public $image_default;
 
