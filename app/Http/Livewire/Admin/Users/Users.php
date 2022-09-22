@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Web\users;
+namespace App\Http\Livewire\Admin\Users;
+
+use Livewire\Component;
 
 use App\Http\Controllers\Api\BaseController;
 use App\Http\Resource\WalletResouce;
@@ -15,7 +17,7 @@ use Illuminate\Http\Request;
 use Exception;
 use Illuminate\Support\Facades\Log;
 
-class UserController extends BaseController
+class Users extends Component
 {
     public function index()
     {

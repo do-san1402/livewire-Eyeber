@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Web\advertisements;
+namespace App\Http\Livewire\Admin\Advertisement;
 
-use App\Http\Controllers\Controller;
+use Livewire\Component;
 use App\Models\Advertisement;
-use App\Models\ProductInventory;
 use App\Models\WatchAdvertisementsLog;
 use App\Models\Nation;
 use Illuminate\Http\Request;
@@ -12,16 +11,11 @@ use Yajra\DataTables\Facades\DataTables;
 use Exception;
 use Illuminate\Support\Facades\Log;
 use App\Http\Requests\admin\AdvertisementRequest;
-use App\Models\Product;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\DB;
-use Spatie\LaravelIgnition\Recorders\DumpRecorder\Dump;
 
-class AdvertisementController extends Controller
+
+class AdvertisementLiveWire extends Component
 {
-
-
     public function index()
     {
         $ads_stautus  = config('apps.common.ads_status');

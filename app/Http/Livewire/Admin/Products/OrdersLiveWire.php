@@ -1,19 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\Web\products;
+namespace App\Http\Livewire\Admin\Products;
 
-use App\Http\Controllers\Controller;
+use Livewire\Component;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
-use Exception;
-use Illuminate\Support\Facades\Log;
-use App\Http\Requests\admin\AdvertisementRequest;
 use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\DB;
 
-class OrderController extends Controller
+
+class OrdersLiveWire extends Component
 {
     public function index(Request $request)
     {

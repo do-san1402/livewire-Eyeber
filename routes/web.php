@@ -17,6 +17,19 @@ use App\Http\Controllers\Web\HomeController;
 use App\Http\Controllers\Web\products\OrderController;
 use App\Http\Controllers\Web\services\alerts\AlertController;
 use App\Http\Controllers\Web\services\QA\QAController;
+use App\Http\Livewire\Admin\Admin\AdminLiveWire;
+use App\Http\Livewire\Admin\Advertisement\AdvertisementLiveWire;
+use App\Http\Livewire\Admin\Advertisement\MiningStatusLiveWire;
+use App\Http\Livewire\Admin\Coins\CoinsLiveWire;
+use App\Http\Livewire\Admin\Coins\CoinsLogLiveWire;
+use App\Http\Livewire\Admin\Home;
+use App\Http\Livewire\Admin\Products\OrdersLiveWire;
+use App\Http\Livewire\Admin\Products\ProductsLiveWire;
+use App\Http\Livewire\Admin\Services\Alerst\AlerstLiveWire;
+use App\Http\Livewire\Admin\Services\Banners\BannersLiveWire;
+use App\Http\Livewire\Admin\Services\Notices\NoticeLiveWire;
+use App\Http\Livewire\Admin\Services\QA\QALiveWire;
+use App\Http\Livewire\Admin\Users\Users;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,16 +49,17 @@ Auth::routes(['register' => false]);
 Route::prefix('admin')->as('admin.')->middleware('auth')->group(function () {
 
     // General
-    Route::controller(HomeController::class)->group(function () {
+    Route::controller(Home::class)->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('change-language/{locale}', 'changeLanguage')->name('change-language');
         Route::get('/fetch-data','fetchData')->name('main.fetchData');
         Route::get('/ranking-monitor','rankingMonitor')->name('rankingMonitor');
         Route::get('/ranking-order','rankingOrder')->name('rankingOrder');
     });
+   
 
     // User
-    Route::controller(UserController::class)->group(function () {
+    Route::controller(Users::class)->group(function () {
         Route::prefix('users')-> as('users.')->group(function () {
             Route::get('/', 'index')->name('index');
             Route::get('fetch-data', 'fetchData')->name('fetchData');
@@ -62,7 +76,7 @@ Route::prefix('admin')->as('admin.')->middleware('auth')->group(function () {
 
     // Coin
     Route::prefix('coins')-> as('coins.')->group(function () {
-        Route::controller(CoinController::class)->group(function () {
+        Route::controller(CoinsLiveWire::class)->group(function () {
             Route::get('/', 'index')->name('index');
             Route::get('/coin-swap-setting', 'coin_swap_setting')->name('coin_swap_settings');
             Route::get('/fetch-data','fetchData')->name('fetchData');
@@ -71,7 +85,7 @@ Route::prefix('admin')->as('admin.')->middleware('auth')->group(function () {
             Route::post('update-swap-setting','updateSwapSetting')->name('updateSwapSetting');
         });
 
-        Route::controller(CoinLogController::class)->group(function () {
+        Route::controller(CoinsLogLiveWire::class)->group(function () {
             Route::get('/log', 'index')->name('log.index');
             Route::get('/witdraw-confirm-list', 'witdrawConfirmList')->name('log.witdrawConfirmList');
             Route::get('/log/fetch-data','fetchData')->name('log.fetchData');
@@ -83,7 +97,7 @@ Route::prefix('admin')->as('admin.')->middleware('auth')->group(function () {
     // Product
     Route::prefix('products')->as('products.')->group(function () {
    
-        Route::controller(ProductsController::class)->group(function () {
+        Route::controller(ProductsLiveWire::class)->group(function () {
                 Route::get('/', 'index')->name('index');
                 Route::get('register', 'create')->name('register');
                 Route::post('register', 'store')->name('store');
@@ -95,7 +109,7 @@ Route::prefix('admin')->as('admin.')->middleware('auth')->group(function () {
         });
 
         // Order
-        Route::controller(OrderController::class)->group(function () {
+        Route::controller(OrdersLiveWire::class)->group(function () {
             Route::prefix('orders')->as('orders.')->group(function () {
                 Route::get('/', 'index')->name('index');
                 Route::get('/fetch-data', 'fetchData')->name('fetchData');
@@ -108,7 +122,7 @@ Route::prefix('admin')->as('admin.')->middleware('auth')->group(function () {
 
     // Advertisement
     Route::prefix('advertisements')->as('advertisements.')->group(function () {
-        Route::controller(AdvertisementController::class)->group(function () {
+        Route::controller(AdvertisementLiveWire::class)->group(function () {
             Route::get('/', 'index')->name('index');
             Route::get('register', 'create')->name('register');
             Route::get('audit', 'audit')->name('audit');
@@ -130,7 +144,7 @@ Route::prefix('admin')->as('admin.')->middleware('auth')->group(function () {
         });
 
         // Mining Status
-        Route::controller(MiningStatusController::class)->group(function () {
+        Route::controller(MiningStatusLiveWire::class)->group(function () {
             Route::get('/mining-status', 'index')->name('mining_status');
             Route::get('/mining-status/fetch-data', 'fetchData')->name('mining_status.fetch_data');
         });
@@ -138,7 +152,7 @@ Route::prefix('admin')->as('admin.')->middleware('auth')->group(function () {
 
     // Services
     Route::prefix('services')->as('services.')->group(function () {
-        Route::controller(NoticeController::class)->group(function () {
+        Route::controller(NoticeLiveWire::class)->group(function () {
             Route::prefix('notices')->as('notices.')->group(function () {
                 Route::get('/', 'index')->name('index');
                 Route::get('/fetch-data', 'fetchData')->name('fetchData');
@@ -151,13 +165,13 @@ Route::prefix('admin')->as('admin.')->middleware('auth')->group(function () {
                 Route::post('/upload-video', 'upload_video')->name('upload_video');
             });
         });
-        Route::controller(BannerController::class)->group(function () {
+        Route::controller(BannersLiveWire::class)->group(function () {
             Route::prefix('banners')->as('banners.')->group(function () {
                 Route::get('/', 'index')->name('index');
                 Route::put('/update', 'update')->name('update');
             });
         });
-        Route::controller(QAController::class)->group(function () {
+        Route::controller(QALiveWire::class)->group(function () {
             Route::prefix('qa')->as('qa.')->group(function () {
                 Route::get('', 'index')->name('index');
                 Route::get('/fetch-data', 'fetchData')->name('fetchData');
@@ -169,7 +183,7 @@ Route::prefix('admin')->as('admin.')->middleware('auth')->group(function () {
                 Route::put('/update/{id}', 'update')->name('update');
             });
         });
-        Route::controller(AlertController::class)->group(function () {
+        Route::controller(AlerstLiveWire::class)->group(function () {
             Route::prefix('alerts')->as('alerts.')->group(function () {
                 Route::get('/', 'index')->name('index');
                 Route::put('/update', 'update')->name('update');
@@ -180,7 +194,7 @@ Route::prefix('admin')->as('admin.')->middleware('auth')->group(function () {
  
 
     // Account
-    Route::controller(AdminController::class)->group(function () {
+    Route::controller(AdminLiveWire::class)->group(function () {
         Route::prefix('admins')->as('admins.')->group(function () {
             Route::get('/', 'index')->name('index');
             Route::get('/fetch-data', 'fetchData')->name('fetchData');
@@ -194,5 +208,4 @@ Route::prefix('admin')->as('admin.')->middleware('auth')->group(function () {
     });
 
 
-   
 });

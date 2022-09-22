@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Web\products;
+namespace App\Http\Livewire\Admin\Products;
 
-use App\Http\Controllers\Controller;
+use Livewire\Component;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\EnhancementSetting;
@@ -10,11 +10,10 @@ use App\Models\Product;
 use App\Models\ProductUpgrade;
 use Illuminate\Http\Request;
 use Exception;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Yajra\DataTables\Facades\DataTables;
 
-class ProductsController extends Controller
+class ProductsLiveWire extends Component
 {
     public $level_limit_product_upgrade;
 
@@ -334,4 +333,4 @@ class ProductsController extends Controller
             return  response()->json($response);
         }
     }
-}  
+}
