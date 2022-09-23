@@ -19,7 +19,7 @@ class OrdersLiveWire extends Component
         $order_categorys = config('apps.common.category_order');
         $products = Product::all();
         $status_orders = config('apps.common.status_order');
-        return view('admin.products.purchase_status', compact('order_categorys', 'products', 'status_orders', 'product_id' , 'user_id'));
+        return view('livewire.admin.products.purchase_status', compact('order_categorys', 'products', 'status_orders', 'product_id' , 'user_id'));
     }
 
     public function fetchData(Request $request)
@@ -53,7 +53,6 @@ class OrdersLiveWire extends Component
                 }
                 $instance->get();
             })->addColumn('user_name', function (Order $order) {
-                return $order->user->nick_name;
                 if($order->user){
                     return $order->user->nick_name;
                 }
@@ -105,7 +104,7 @@ class OrdersLiveWire extends Component
 
     public function status_sales(Request $request)
     {
-        return view('admin.products.sales_status');
+        return view('livewire.admin.products.sales_status');
     }
 
     public function status_sales_fetchData(Request $request)

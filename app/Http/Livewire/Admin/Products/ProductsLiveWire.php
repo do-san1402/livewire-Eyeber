@@ -31,14 +31,14 @@ class ProductsLiveWire extends Component
         $glass_category = config('apps.common.glass_category');
         $glass_type = config('apps.common.glass_type');
         $level_limit_product_upgrade = $this->level_limit_product_upgrade;
-        return view('admin.products.create', compact('sales_status', 'product_upgrade_off',
+        return view('livewire.admin.products.create', compact('sales_status', 'product_upgrade_off',
         'product_upgrade_on', 'minings','available_coins', 'level_limit_product_upgrade' , 'glass_category','glass_type'));
     }
 
     public function index()
     {
         $status_sales  = config('apps.common.status_sales');
-        return view('admin.products.index',compact('status_sales'));
+        return view('livewire.admin.products.index',compact('status_sales'));
     }
 
     public function edit($id)
@@ -67,7 +67,7 @@ class ProductsLiveWire extends Component
         $product_upgrade_off = config('apps.common.product_upgrade.off');
         $product_upgrade_on = config('apps.common.product_upgrade.on');
         $minings = config('apps.common.mining');
-        return view('admin.products.edit', compact('product',
+        return view('livewire.admin.products.edit', compact('product',
          'sales_status', 'product_upgrade_off',
          'product_upgrade_on', 'minings', 'level_limit_product_upgrade', 'product_upgrade', 'glass_category' ,'level', 'glass_category', 'glass_type'));
     }
@@ -90,8 +90,10 @@ class ProductsLiveWire extends Component
             }
             if ($request->hasFile('image')) {
                 $get_image = $request->file('image');
-                $new_image          = 'prodcut_' .$id . '.' . $get_image->getClientOriginalExtension();
-                $get_image->storeAs('images/products/', $new_image);
+                $digits = 4;
+                $code = rand(pow(10, $digits-1), pow(10, $digits)-1);
+                $new_image          = 'prodcut_' .$code. '.' . $get_image->getClientOriginalExtension();
+                $get_image->storeAs('storage/images/products/', $new_image, 'real_public');
             }
             $data['image']   = $new_image ??  Product::where('id', $id)->first()->image ;
             $product = Product::where('id', $id)->update($data);
@@ -191,9 +193,11 @@ class ProductsLiveWire extends Component
             $product->sale_status_id = config('apps.common.status_sales.Sale');
             $new_image = "";
             if ($request->hasFile('image')) {
+                $digits = 4;
+                $code = rand(pow(10, $digits-1), pow(10, $digits)-1);
                 $get_image = $request->file('image');
-                $new_image          = 'prodcut_' . time() . '.' . $get_image->getClientOriginalExtension();
-                $get_image->storeAs('images/products/', $new_image);    
+                $new_image          = 'prodcut_' .$code. '.' . $get_image->getClientOriginalExtension();
+                $get_image->storeAs('storage/images/products/', $new_image, 'real_public');    
             }
             $product->image =  $new_image;
             $product->available_coins_id = $request->available_coin_id;

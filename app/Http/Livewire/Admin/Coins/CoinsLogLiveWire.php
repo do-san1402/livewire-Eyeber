@@ -33,7 +33,7 @@ class CoinsLogLiveWire extends Component
         $status_classification_coins = config('apps.common.status_classification_coin');
         $coins = Coin::all();
         $status_log_coins = config('apps.common.withdrawal_status');
-        return view('admin.coins.log', compact('status_classification_coins', 'coins', 'status_log_coins', 'user_id'));
+        return view('livewire.admin.coins.log', compact('status_classification_coins', 'coins', 'status_log_coins', 'user_id'));
     }
 
     public function fetchData(Request $request)
@@ -118,7 +118,7 @@ class CoinsLogLiveWire extends Component
         $coins = Coin::all();
         // confirm 
         $confirms =  $this->confirms;
-        return view('admin.coins.log_witdraw', compact('status_classification_coins', 'coins', 'confirms', 'user_id'));
+        return view('livewire.admin.coins.log_witdraw', compact('status_classification_coins', 'coins', 'confirms', 'user_id'));
     }
 
     public function fetchDataWitdraw(Request $request) {

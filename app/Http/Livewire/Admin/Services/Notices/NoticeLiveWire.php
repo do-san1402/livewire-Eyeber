@@ -15,7 +15,7 @@ class NoticeLiveWire extends Component
     public function index()
     {
         $ads_stautus  = config('apps.common.ads_status');
-        return view('admin.services.notices.index', compact('ads_stautus'));
+        return view('livewire.admin.services.notices.index', compact('ads_stautus'));
     }
 
     public function fetchData(Request $request)
@@ -104,7 +104,7 @@ class NoticeLiveWire extends Component
 
     public function create()
     {
-        return view('admin.services.notices.register');
+        return view('livewire.admin.services.notices.register');
     }
 
     public function store(NoticeRequest $request)
@@ -137,7 +137,7 @@ class NoticeLiveWire extends Component
                 break;
             }
         }
-        return view('admin.services.notices.edit', compact('notice', 'ads_stautus'));
+        return view('livewire.admin.services.notices.edit', compact('notice', 'ads_stautus'));
     }
 
     public function update(Request $request,$id)
@@ -158,8 +158,10 @@ class NoticeLiveWire extends Component
     public function upload_video(Request $request)
     {
         if ($request->hasFile('upload')) {
+            $digits = 4;
+            $code = rand(pow(10, $digits-1), pow(10, $digits)-1);
             $get_image = $request->file('upload');
-            $new_image          = 'prodcut_' . time() . '.' . $get_image->getClientOriginalExtension();
+            $new_image          = 'prodcut_' .$code. '.' . $get_image->getClientOriginalExtension();
             $get_image->storeAs('images/products/', $new_image);    
         }
         $url = url('/storage/images/products/' . $new_image);

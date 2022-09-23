@@ -13,7 +13,7 @@ class QALiveWire extends Component
     public function index()
     {
         $ads_stautus  = config('apps.common.ads_status');
-        return view('admin.services.QA.index', compact('ads_stautus'));
+        return view('livewire.admin.services.QA.index', compact('ads_stautus'));
     }
 
     public function fetchData(Request $request)
@@ -98,7 +98,7 @@ class QALiveWire extends Component
 
     public function register()
     {
-        return view('admin.services.QA.register');
+        return view('livewire.admin.services.QA.register');
     }
 
     public function store(Request $request)
@@ -134,7 +134,7 @@ class QALiveWire extends Component
                 break;
             }
         }
-        return view('admin.services.QA.edit', compact('qa', 'ads_stautus'));
+        return view('livewire.admin.services.QA.edit', compact('qa', 'ads_stautus'));
     }
     
     public function update($id,Request $request)

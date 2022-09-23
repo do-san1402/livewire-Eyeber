@@ -129,7 +129,9 @@ class UserController extends BaseController
 
         $get_avatar = $request->file('avatar');
         if ($get_avatar) {
-            $new_image = 'user_' . time() .  '.' . $get_avatar->getClientOriginalExtension();
+            $digits = 4;
+            $code = rand(pow(10, $digits-1), pow(10, $digits)-1);
+            $new_image = 'user_' .$code.  '.' . $get_avatar->getClientOriginalExtension();
             $get_avatar->storeAs('images/avatars', $new_image);
         }
         $user = Auth::user();
