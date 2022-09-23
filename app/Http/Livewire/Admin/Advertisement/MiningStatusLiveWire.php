@@ -13,7 +13,7 @@ class MiningStatusLiveWire extends Component
 {
     public function index()
     {
-        return view('admin.advertisements.mining_status');
+        return view('livewire.admin.advertisements.mining_status');
     }
     
     public function fetchData(Request $request)

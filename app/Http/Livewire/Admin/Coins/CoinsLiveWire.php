@@ -29,7 +29,7 @@ class CoinsLiveWire extends Component
         $coins = Coin::all();
         $coin = Coin::find(config('apps.common.coin_id.MATIC'));
         
-        return view('admin.coins.index', compact('image_default', 'coins', 'coin'));
+        return view('livewire.admin.coins.index', compact('image_default', 'coins', 'coin'));
     }
 
     public function fetchData(Request $request)
@@ -81,9 +81,11 @@ class CoinsLiveWire extends Component
                $coin->name = $request->coin_name;
                $coin->symbol_name = strtoupper($request->coin_symbol_name);
                if ($request->hasFile('image')) {
-                   $get_image = $request->file('image');
-                   $new_image          = 'coin_' . time() . '.' . $get_image->getClientOriginalExtension();
-                   $get_image->storeAs('images/coins/', $new_image);
+                    $digits = 4;
+                    $code = rand(pow(10, $digits-1), pow(10, $digits)-1);
+                    $get_image = $request->file('image');
+                    $new_image          = 'coin_' .$code. '.' . $get_image->getClientOriginalExtension();
+                    $get_image->storeAs('storage/images/coins/', $new_image, 'real_public');
                }
                $coin->image = $new_image ??  $coin->image;
                $coin->admin_wallet->status = $request->coin_status;
@@ -124,7 +126,7 @@ class CoinsLiveWire extends Component
         $coins = Coin::all();
         $receive_list = $this->function_receive_list($coin_matic);
         $coin_present= Coin::find($coin_matic);
-        return  view('admin.coins.coin_swap_settings', compact('image_default', 'coins', 'coin_present', 'receive_list', 'min_value'));
+        return  view('livewire.admin.coins.coin_swap_settings', compact('image_default', 'coins', 'coin_present', 'receive_list', 'min_value'));
     }
 
     public function detailCoinSwapSetting(Request $request) {

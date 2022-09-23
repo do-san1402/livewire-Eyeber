@@ -26,7 +26,7 @@ class BannersLiveWire extends Component
         $banner_four = Banner::find(4);
         $banner_five = Banner::find(5);
         $image_default = $this->image_default;
-        return view('admin.services.banners.index', compact('banner_one', 
+        return view('livewire.admin.services.banners.index', compact('banner_one', 
                                                     'banner_two', 'banner_three',
                                                     'banner_four', 'banner_five', 'image_default'));
     }
@@ -46,9 +46,9 @@ class BannersLiveWire extends Component
                 if (isset($request->file('image')[$key])) {
                     $get_image = $request->file('image')[$key];
                     $new_image          = 'banner_' . $code . '.' . $get_image->getClientOriginalExtension();
-                    $get_image->storeAs('images/banners/', $new_image);    
+                    $get_image->storeAs('storage/images/banners/', $new_image, 'real_public');    
                 }
-                $banner->image = !empty($new_image) ? $new_image : $banner->image;
+                $banner->image = !empty($new_image) ? $new_image : '';
                 $banner->link = $data["link"][$key];
                 $date_start = new DateTime($data["date_start"][$key]);
                 $date_end = new DateTime($data["date_end"][$key]);

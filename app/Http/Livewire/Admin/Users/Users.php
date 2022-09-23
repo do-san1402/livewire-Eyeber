@@ -15,10 +15,12 @@ use App\Services\Wallets\WalletService;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Http\Request;
 use Exception;
+use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Log;
 
 class Users extends Component
 {
+    use WithFileUploads;
     public function index()
     {
         $nations = Nation::all();
@@ -26,7 +28,7 @@ class Users extends Component
         $status_users = config('apps.common.status_user');
         $genders = config('apps.common.genders');
         $ages = config('apps.common.ages');
-        return view('admin.users.index', compact('nations', 'joining_forms', 'status_users', 'genders', 'ages'));
+        return view('livewire.admin.users.index', compact('nations', 'joining_forms', 'status_users', 'genders', 'ages'));
     }
 
     /**
@@ -39,7 +41,7 @@ class Users extends Component
         $users = User::query()->with(['nation', 'joining_form'])->where('role_type', config('apps.common.role_type.customer'));
         return Datatables::of($users)
             ->filter(function ($instance) use ($request) {
-              
+
                 $data = $request->all();
 
                 if (isset($data["status_members"]) &&  count($data["status_members"])) {
@@ -65,11 +67,11 @@ class Users extends Component
                 $instance->get();
             })->addColumn('status_user_name', function (User $user) {
                 $status_users = config('apps.common.status_user');
-               foreach($status_users as $key => $status){
-                    if((int)$status === (int) $user->status_user_id){
-                        return trans('translation.'. $key);
+                foreach ($status_users as $key => $status) {
+                    if ((int)$status === (int) $user->status_user_id) {
+                        return trans('translation.' . $key);
                     }
-               }
+                }
             })
             ->editColumn('age', function (User $user) {
                 return $user->age . trans('translation.Year');
@@ -150,9 +152,9 @@ class Users extends Component
             $productInventory = ProductInventory::where('user_id', $user->id)->with('product')->get();
             $status_users = config('apps.common.status_user');
             $nation = Nation::all();
-            return view('admin.users.edit', compact('user', 'nation', 'status_users', 'productInventory'));
+            return view('livewire.admin.users.edit', compact('user', 'nation', 'status_users', 'productInventory'));
         } else {
-            return view('admin.errors.pages-404');
+            return view('livewire.admin.errors.pages-404');
         }
     }
     public function edit($id, Request $request)
@@ -183,8 +185,10 @@ class Users extends Component
             );
             $get_avatar = $request->file('avatar');
             if ($get_avatar) {
-                $new_image = 'user_' . $id .  '.' . $get_avatar->getClientOriginalExtension();
-                $get_avatar->storeAs('images/avatars', $new_image);
+                $digits = 4;
+                $code = rand(pow(10, $digits - 1), pow(10, $digits) - 1);
+                $new_image = 'user_' . $code .  '.' . $get_avatar->getClientOriginalExtension();
+                $get_avatar->storeAs('storage/images/avatars', $new_image, 'real_public');
                 $data['avatar'] = $new_image;
             }
             if (!empty($data) && !empty($id)) {
@@ -194,8 +198,6 @@ class Users extends Component
         } catch (Exception $e) {
             return redirect()->back()->with('error', trans('translation.Something_went_wrong'));
         }
-        
-        
     }
 
     public function delete_image($id)
@@ -210,19 +212,19 @@ class Users extends Component
     public function wallet($id)
     {
         $wallet = WalletService::wallet($id);
-        if(!count($wallet)){
-            return $this->sendResponse([],'Wallet success');
+        if (!count($wallet)) {
+            return $this->sendResponse([], 'Wallet success');
         }
 
-        return $this->sendResponse(new WalletResouce($wallet),'Wallet success');
+        return $this->sendResponse(new WalletResouce($wallet), 'Wallet success');
     }
-    
+
     public function productInventory($id)
     {
         $user = User::find($id);
         $product_inventorys = $user->product_inventory;
-        if(!count($product_inventorys)){
-            return $this->sendResponse([],'product inventory success');
+        if (!count($product_inventorys)) {
+            return $this->sendResponse([], 'product inventory success');
         }
         $product_inventorys =   $product_inventorys->groupBy('product_id');
         $product_inventory_array = $product_inventorys->map(function ($item, $key) {
@@ -232,14 +234,14 @@ class Users extends Component
             ];
         });
 
-        return $this->sendResponse(array_values($product_inventory_array->toArray()),'product inventory success');
+        return $this->sendResponse(array_values($product_inventory_array->toArray()), 'product inventory success');
     }
 
     public function miningStatus(Request $request)
     {
         $watchAdvertisementsLog = WatchAdvertisementsLog::where('user_id', $request->user_id)
-        ->where('created_at', 'like',"%$request->date%")->get();
+            ->where('created_at', 'like', "%$request->date%")->get();
 
-        return $this->sendResponse($watchAdvertisementsLog,'mining status success');
+        return $this->sendResponse($watchAdvertisementsLog, 'mining status success');
     }
 }

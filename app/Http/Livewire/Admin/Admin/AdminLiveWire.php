@@ -27,7 +27,7 @@ class AdminLiveWire extends Component
     {
         $status_users = config('apps.common.status_user');
         $ranks = Rank::all();
-        return view('admin.admins.index', compact('status_users', 'ranks'));
+        return view('livewire.admin.admins.index', compact('status_users', 'ranks'));
     }
 
     /**
@@ -139,7 +139,7 @@ class AdminLiveWire extends Component
             }
        }
         $ranks = Rank::all();
-        return view('admin.admins.edit', compact('status_users', 'ranks', 'user'));
+        return view('livewire.admin.admins.edit', compact('status_users', 'ranks', 'user'));
     }
 
     public function update(UpdateAdminRequest $request, $id)
@@ -164,7 +164,7 @@ class AdminLiveWire extends Component
     public function create()
     {
         $ranks = Rank::all();
-        return view('admin.admins.create', compact('ranks'));
+        return view('livewire.admin.admins.create', compact('ranks'));
     }
 
     public function store(StoreAdminRequest $request)

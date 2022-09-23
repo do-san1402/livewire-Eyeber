@@ -40,11 +40,6 @@ class Home extends Component
         }
     }
 
-    public function FormSubmit(Request $request)
-    {
-        return view('form-repeater');
-    }
-
     public function fetchData(Request $request)
     {
 

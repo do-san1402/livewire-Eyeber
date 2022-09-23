@@ -19,7 +19,7 @@ class AdvertisementLiveWire extends Component
     public function index()
     {
         $ads_stautus  = config('apps.common.ads_status');
-        return view('admin.advertisements.index', compact('ads_stautus'));
+        return view('livewire.admin.advertisements.index', compact('ads_stautus'));
     }
 
     /**
@@ -126,27 +126,29 @@ class AdvertisementLiveWire extends Component
     {
         $advertisements = Advertisement::orderBy('views', 'desc')->limit(10)->get();
         $view_max = $advertisements[0]->id;
-        return view('admin.advertisements.monitoring', compact('advertisements', 'view_max'));
+        return view('livewire.admin.advertisements.monitoring', compact('advertisements', 'view_max'));
     }
 
     public function MiningAmountRanking()
     {
-        return view('admin.advertisements.miningAmountRanking');
+        return view('livewire.admin.advertisements.miningAmountRanking');
     }
 
     public function create()
     {
         $nation = Nation::all();
-        return view('admin.advertisements.create', compact('nation'));
+        return view('livewire.admin.advertisements.create', compact('nation'));
     }
     public function register_ads(AdvertisementRequest $request)
     {
         try {
             $data = $request->all();
             if ($request->hasFile('video')) {
+                $digits = 4;
+                $code = rand(pow(10, $digits-1), pow(10, $digits)-1);
                 $get_video = $request->file('video');
-                $new_video = 'advertisements_' . time() .  '.' . $get_video->getClientOriginalExtension();
-                $get_video->storeAs('video/advertisements', $new_video);
+                $new_video = 'advertisements_' .$code.  '.' . $get_video->getClientOriginalExtension();
+                $get_video->storeAs('storage/video/advertisements', $new_video, 'real_public');
             }
 
             $rewards = config('apps.common.mining_settings_auto');
@@ -180,10 +182,6 @@ class AdvertisementLiveWire extends Component
             return redirect()->back()->with('error', trans('translation.Something_went_wrong'));
         }
     }
-    public function audit()
-    {
-        return view('admin.advertisements.audit');
-    }
     public function edit($id)
     {
         $advertisement = Advertisement::where('id', $id)->first();
@@ -197,9 +195,9 @@ class AdvertisementLiveWire extends Component
             $count_number_ads = WatchAdvertisementsLog::groupBy('user_id')->count();
             $count_product_ads = WatchAdvertisementsLog::groupBy('product_inventory_id')->count();
 
-            return view('admin.advertisements.edit', compact('advertisement', 'advertisement_setting', 'nation_id', 'nation', 'count_number_ads', 'count_product_ads'));
+            return view('livewire.admin.advertisements.edit', compact('advertisement', 'advertisement_setting', 'nation_id', 'nation', 'count_number_ads', 'count_product_ads'));
         } else {
-            return view('admin.errors.pages-404');
+            return view('livewire.admin.errors.pages-404');
         }
     }
 
@@ -230,9 +228,11 @@ class AdvertisementLiveWire extends Component
             }
             $data['name'] = $request->advertisement_name;
             if ($request->hasFile('video')) {
+                $digits = 4;
+                $code = rand(pow(10, $digits-1), pow(10, $digits)-1);
                 $get_video = $request->file('video');
-                $new_video = 'advertisements_' . time() .  '.' . $get_video->getClientOriginalExtension();
-                $get_video->storeAs('video/advertisements', $new_video);
+                $new_video = 'advertisements_' .$code.  '.' . $get_video->getClientOriginalExtension();
+                $get_video->storeAs('storage/video/advertisements', $new_video, 'real_public');
                 $data['video'] = $new_video;
             }
             if ((int)$request->ad_nation_id === 0) {
@@ -260,9 +260,11 @@ class AdvertisementLiveWire extends Component
         $new_video = '';
         if ($request->hasFile('video')) {
             if ($get_video->getClientMimeType() == "video/mp4") {
+                $digits = 4;
+                $code = rand(pow(10, $digits-1), pow(10, $digits)-1);
                 $get_video = $request->file('video');
-                $new_video = 'advertisements_' . time() .  '.' . $get_video->getClientOriginalExtension();
-                $get_video->storeAs('video/advertisements', $new_video);
+                $new_video = 'advertisements_' .$code.  '.' . $get_video->getClientOriginalExtension();
+                $get_video->storeAs('storage/video/advertisements', $new_video, 'real_public');
             } else {
                 $response = [
                     'error' =>   'Not a video format image',
